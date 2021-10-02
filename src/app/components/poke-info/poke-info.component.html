@@ -1,0 +1,55 @@
+<app-modal *ngIf="pokemon">
+    <div class="flex px-2 justify-between items-center">
+      <div class="flex items-center content-center justify-between">
+        <h2 class="my-4">{{pokemon.name | uppercase}}</h2>
+        <app-favorite-btn class="ml-2" [id]="pokemon.id" [isFavorite]="pokemon.isFavorite"></app-favorite-btn>
+      </div>
+      <button class="bg-transparent border-none cursor-pointer text-black" (click)="closeParentModal()">x</button>
+    </div>
+    <hr class="m-2"/>
+    <div class="p-2">
+      <div class="md:flex gap-2">
+        <div class="flex flex-col items-center w-9/12 m-auto">
+          <img class="w-full" [src]="pokemon.imageUrl" [alt]="pokemon.name">
+          <button class="h-9 border-none rounded-md cursor-pointer w-full pl-4 bg-gray-600 text-white hover:bg-gray-400 focus:outline-none active:outline-none" (click)="compare()">Compare to...</button>
+        </div>
+        <div class="md:w-7/12">
+          <p>{{pokemon.description}}</p>
+          <hr class="m-2"/>
+          <div class="flex justify-around my-2">
+            <div>
+              <strong>Height</strong>
+              <p>{{pokemon.height / 10}}m</p>
+            </div>
+            <div>
+              <strong>Weight</strong>
+              <p>{{pokemon.weight / 10 }}kg</p>
+            </div>
+            <div>
+              <strong>Gender</strong>
+              <p>{{pokemon.gender}}</p>
+            </div>
+          </div>
+          <div class="flex justify-around my-2">
+            <div>
+              <strong>Abilities</strong>
+              <ul>
+                <li *ngFor="let item of pokemon.abilities">{{item.ability.name}}</li>
+              </ul>
+            </div>
+            <div>
+              <strong>Types</strong>
+              <ul>
+                <li *ngFor="let item of pokemon.abilities">{{item.ability.name}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="m-2" />
+    </div>
+    <div class="max-w-xl m-auto">
+      <app-graphics [dataset]="[pokemon.statsData]"></app-graphics>
+    </div>
+  </app-modal>
+  

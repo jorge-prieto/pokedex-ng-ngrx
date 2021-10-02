@@ -1,0 +1,47 @@
+<app-modal *ngIf="toCompare">
+    <div class="flex mx-2 justify-between items-center">
+      <div class="flex justify-between items-center content-center">
+        <h2 class="my-4">{{toShow.name + ' vs. ' + toCompare.name | uppercase}}</h2>
+      </div>
+      <button class="bg-transparent border-none text-black cursor-pointer" (click)="closeParentModal()">x</button>
+    </div>
+    <hr class="m-2"/>
+    <div class="px-2">
+      <div class="flex flex-col">
+        <img class="w-48 h-48 m-auto" [src]="toShow.imageUrl" [alt]="toShow.name">
+        <img class="content__img" [src]="toCompare.imageUrl" [alt]="toCompare.name">
+      </div>
+      <hr class="w-2"/>
+      <div class="my-2">
+        <div class="flex items-center justify-around">
+          <p>{{toShow.height / 10}}m</p>
+          <strong>Height</strong>
+          <p>{{toCompare.height / 10}}m</p>
+        </div>
+        <div class="flex items-center justify-around">
+          <p>{{toShow.weight / 10 }}kg</p>
+          <strong>Weight</strong>
+          <p>{{toCompare.weight / 10 }}kg</p>
+        </div>
+        <div class="flex items-center justify-around">
+          <p>{{toShow.gender}}</p>
+          <strong>Gender</strong>
+          <p>{{toCompare.gender}}</p>
+        </div>
+        <div class="flex items-center justify-around ">
+          <div>
+            <p *ngFor="let item of toShow.abilities">{{item.ability.name}}</p>
+          </div>
+          <p><strong>Abilities</strong></p>
+          <div>
+            <p *ngFor="let item of toCompare.abilities">{{item.ability.name}}</p>
+          </div>
+        </div>
+      </div>
+      <hr class="w-2"/>
+    </div>
+    <div class="max-w-xl m-auto">
+      <app-graphics [dataset]="[toShow.statsData, toCompare.statsData]"></app-graphics>
+    </div>
+  </app-modal>
+  

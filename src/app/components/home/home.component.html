@@ -1,0 +1,11 @@
+<h2>Favorite pokemons works!</h2>
+<ngb-carousel [interval]="2000" *ngIf="favoritePokemons">
+  <ng-template class="bg-yellow-200 rounded-md py-10 focus:outline-none" *ngFor="let pokemon of favoritePokemons" ngbSlide>
+    <div class="w-9/12 m-auto md:w-2/5">
+      <app-pokemon-card
+        class="relative overflow-hidden rounded-md border-solid border border-gray-500"
+        [pokemon]="pokemon">
+      </app-pokemon-card>
+    </div>
+  </ng-template>
+</ngb-carousel>
