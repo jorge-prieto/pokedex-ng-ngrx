@@ -1,0 +1,87 @@
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChartsModule } from 'ng2-charts';
+import { GraphicsData } from './GraphicsData';
+
+@Component({
+  selector: 'app-charts',
+  templateUrl: './charts.component.html',
+  styleUrls: ['./charts.component.scss'],
+})
+export class ChartsComponent implements OnInit {
+  @ViewChild('canvas', { static: true })
+  canvas: ElementRef<HTMLCanvasElement>;
+  @Input() dataset: number[][];
+  datasets: GraphicsData[] = [];
+  chart = ChartsModule;
+  private ctx: CanvasRenderingContext2D;
+
+  ngOnInit(): void {
+    const colors = ['rgb(62, 130, 115)', 'rgb(102, 209, 188)'];
+    const colorsLength = colors.length;
+    this.datasets = this.dataset.map((item, index) => {
+      return {
+        data: item,
+        categoryPercentage: 0.8,
+        backgroundColor: colors[index % colorsLength],
+      };
+    });
+
+    this.ctx = this.canvas.nativeElement.getContext('2d');
+
+    this.chart = new Chart(this.ctx, {
+      type: 'bar',
+      data: {
+        labels: [
+          'hp',
+          'attack',
+          'defense',
+          'special-attack',
+          'special-defense',
+          'speed',
+        ],
+        datasets: [...this.datasets],
+      },
+      options: {
+        legend: {
+          display: false,
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+                max: 100,
+                stepSize: 25,
+                padding: 5,
+              },
+              gridLines: {
+                display: true,
+                drawBorder: true,
+                drawOnChartArea: false,
+                zeroLineColor: 'rgb(0,0,0)',
+                color: 'rgb(0, 0, 0)',
+                tickMarkLength: 5,
+              },
+            },
+          ],
+          xAxes: [
+            {
+              ticks: {
+                padding: 5,
+              },
+              gridLines: {
+                display: true,
+                drawBorder: true,
+                drawOnChartArea: false,
+                zeroLineColor: 'rgb(0,0,0)',
+                color: 'rgb(0, 0, 0)',
+                offsetGridLines: false,
+                tickMarkLength: 5,
+              },
+            },
+          ],
+        },
+      },
+    });
+  }
+}

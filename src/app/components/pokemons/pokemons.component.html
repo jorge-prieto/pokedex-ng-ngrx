@@ -1,0 +1,8 @@
+<div class="flex flex-col gap-6 w-3/4 m-auto md:flex-row md:flex-wrap md:w-11/12 md:justify-between" infiniteScroll (scrolled)="loadMore()">
+  <app-pokemon-card
+    class="w-full m-auto md:w-48"
+    *ngFor="let pokemon of pokemons"
+    [pokemon]="pokemon"
+  >
+  </app-pokemon-card>
+</div>
